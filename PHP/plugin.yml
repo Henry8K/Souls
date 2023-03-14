@@ -1,0 +1,17 @@
+# ========================
+#   GENERAL INFORMATIONS
+# ========================
+
+name: Souls
+api: [4.0.0]
+version: 1.0.0
+main: Henry8K\Souls\Main
+
+# ========================
+#    OTHER INFORMATIONS
+# ========================
+
+author: "Henry8K"
+website: "https://henry8k.github.io/"
+softdepend: ["EconomyAPI",  "BedrockEconomy"]
+description: 'A plugin to implement souls system in your server'
