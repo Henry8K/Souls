@@ -1,0 +1,59 @@
+---
+# ========================
+#     GENERAL CONFIG
+# ========================
+# Intructions: 
+# Protip: Use minecraft color codes symbols to customize your messages
+# In 'general-souls-mode' you can use 1 to money and 2 to XP, money mode support EconomyAPI and BedrockEconomy
+
+in-game-message: "§cERROR -> §8use this command in-game."
+no-perms-message: "§cERROR -> §8you don't have permission to use this command."
+command-not-available: "§cOPS! ->  §8this command is not available for you use now."
+
+general-price-per-soul: 1 
+general-souls-sell-mode: 1 # Default Money
+
+message-success-when-selling: "§aSUCESS -> §8you sell your souls successfully." 
+message-not-enough-souls: "§cERROR -> §8you don't have sufficiently souls to sell."
+
+# ========================
+#     COMMANDS OPTION
+# ========================
+# Intructions: set to false to disable commands features in your server
+
+souls-view-command: true
+souls-sell-command: false
+souls-manage-command: true
+
+# ========================
+#     COMMANDS CONFIG
+# ========================
+# Intructions: DO NOT use any spaces on command name and minecraft color codes are not recommended.
+
+# Permission: souls.view.command
+souls-view-command-name: "souls"
+souls-view-command-description: "view your total souls on server."
+
+# Permission: souls.sell.command
+souls-sell-command-name: "soulsell"
+souls-sell-command-description: "sell your souls for money or XP on server."
+
+# Permission: souls.manage.command
+souls-manage-add-command-name: "addsouls"
+souls-manage-add-command-description: "add souls to player"
+
+# Permisson: souls.manage.command
+souls-manage-add-command-name: "removesouls"
+souls-manage-add-command-description: "remove souls from player"
+
+# ========================
+#    SOULS FORM CONFIG
+# ========================
+# Protip: Use minecraft color codes symbols to customize your messages and \n to break a line.
+# Intructions: You can use {player_souls} to get all player souls and {player_name} to get playername.
+
+form-souls-sell-title: "§l§8SOULS SELL"
+form-souls-sell-description: "§fyou have §6{player_souls} §fsouls to sell."
+form-souls-sell-exit: "§l§aSELL\n§8click to sell your souls"
+form-souls-sell-exit-button: "§l§cEXIT\n§8click to exit from souls sell form"
+...

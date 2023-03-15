@@ -10,6 +10,10 @@ use Henry8K\Souls\API\SoulsAPI;
 use Henry8K\Souls\Events\PlayerAdd;
 use Henry8K\Souls\Events\PlayerEvent;
 
+use Henry8K\Souls\Commands\SoulsViewCommand;
+use Henry8K\Souls\Commands\SoulsSellCommand;
+use Henry8K\Souls\Commands\SoulsManageCommand;
+
 class Main extends PluginBase implements Listener {
 
     /** @var Config */
@@ -33,6 +37,12 @@ class Main extends PluginBase implements Listener {
         
         $this->getServer()->getPluginManager()->registerEvents(new PlayerAdd($this), $this);
         $this->getServer()->getPluginManager()->registerEvents(new PlayerEvent($this), $this);
+
+        $this->soulsAPI = new SoulsAPI($this);
+		$this->getServer()->getCommandMap()->register("souls", new SoulsViewCommand($this));
+        $this->getServer()->getCommandMap()->register("soulssell", new SoulsSellCommand($this));
+        $this->getServer()->getCommandMap()->register("soulsmanage", new SoulsAddCommand($this));
+        $this->getServer()->getCommandMap()->register("soulsmanage", new SoulsRemoveCommand($this));
     }
 
     // ===================================
