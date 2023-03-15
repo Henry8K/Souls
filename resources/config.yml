@@ -11,10 +11,13 @@ no-perms-message: "§cERROR -> §8you don't have permission to use this command.
 command-not-available: "§cOPS! ->  §8this command is not available for you use now."
 
 general-price-per-soul: 1 
-general-souls-sell-mode: 1 # Default Money
+general-souls-sell-mode: 1
 
 message-success-when-selling: "§aSUCESS -> §8you sell your souls successfully." 
 message-not-enough-souls: "§cERROR -> §8you don't have sufficiently souls to sell."
+
+souls-per-player-kill: 1
+souls-worlds-give: ["world", "arena"]
 
 # ========================
 #     COMMANDS OPTION
@@ -29,22 +32,16 @@ souls-manage-command: true
 #     COMMANDS CONFIG
 # ========================
 # Intructions: DO NOT use any spaces on command name and minecraft color codes are not recommended.
+# You can use {player_souls} to get all player souls and {player_name} to get playername.
 
 # Permission: souls.view.command
 souls-view-command-name: "souls"
 souls-view-command-description: "view your total souls on server."
+souls-view-message-command: "§a[SERVER] -> §8you have §6{player_souls} §8souls."
 
 # Permission: souls.sell.command
 souls-sell-command-name: "soulsell"
 souls-sell-command-description: "sell your souls for money or XP on server."
-
-# Permission: souls.manage.command
-souls-manage-add-command-name: "addsouls"
-souls-manage-add-command-description: "add souls to player"
-
-# Permisson: souls.manage.command
-souls-manage-add-command-name: "removesouls"
-souls-manage-add-command-description: "remove souls from player"
 
 # ========================
 #    SOULS FORM CONFIG
@@ -54,6 +51,6 @@ souls-manage-add-command-description: "remove souls from player"
 
 form-souls-sell-title: "§l§8SOULS SELL"
 form-souls-sell-description: "§fyou have §6{player_souls} §fsouls to sell."
-form-souls-sell-exit: "§l§aSELL\n§8click to sell your souls"
-form-souls-sell-exit-button: "§l§cEXIT\n§8click to exit from souls sell form"
+form-souls-sell-exit: "§l§aSELL\n§8click to sell your souls."
+form-souls-sell-exit-button: "§l§cEXIT\n§8click to exit from souls sell form."
 ...

@@ -41,8 +41,6 @@ class Main extends PluginBase implements Listener {
         $this->soulsAPI = new SoulsAPI($this);
 		$this->getServer()->getCommandMap()->register("souls", new SoulsViewCommand($this));
         $this->getServer()->getCommandMap()->register("soulssell", new SoulsSellCommand($this));
-        $this->getServer()->getCommandMap()->register("soulsmanage", new SoulsAddCommand($this));
-        $this->getServer()->getCommandMap()->register("soulsmanage", new SoulsRemoveCommand($this));
     }
 
     // ===================================

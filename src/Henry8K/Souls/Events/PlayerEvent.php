@@ -41,7 +41,7 @@ class PlayerEvent implements Listener {
         $cause = $player->getLastDamageCause();
         $worldname = $player->getWorld()->getFolderName();
 
-        if(!in_array($worldname, $this->config->get("souls-worlds", []))) {
+        if(!in_array($worldname, $this->config->get("souls-give-worlds", []))) {
             return true;
         }
 
@@ -49,7 +49,7 @@ class PlayerEvent implements Listener {
             $killer = $cause->getDamager();
             if($killer instanceof Player) {
                 $killername = $killer->getName();
-                $amount = $this->config->get("souls-by-kill");
+                $amount = $this->config->get("souls-per-player-kill");
                 $this->soulsAPI->addSouls($killername, $amount);
             }
         }

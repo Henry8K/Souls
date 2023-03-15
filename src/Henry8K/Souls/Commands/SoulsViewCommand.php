@@ -34,7 +34,6 @@ class SoulsViewCommand extends Command {
         parent::__construct($this->config->get("souls-view-command-name"));
         $this->setDescription($this->config->get("souls-view-command-description"));
         $this->setPermission("souls.view.command");
-        $this->setAliases(["soulview", "soulsvalue"]);
     }
 
     //==============================

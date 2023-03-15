@@ -38,7 +38,6 @@ class SoulsSellCommand extends Command {
         parent::__construct($this->config->get("souls-sell-command-name"));
         $this->setDescription($this->config->get("souls-sell-command-description"));
         $this->setPermission("souls.sell.command");
-        $this->setAliases(["soulss", "ss"]);
     }
 
     //==============================
