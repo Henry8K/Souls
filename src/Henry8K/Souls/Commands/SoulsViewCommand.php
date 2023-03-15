@@ -28,7 +28,7 @@ class SoulsViewCommand extends Command {
 
     public function __construct(Main $main) {
         $this->main = $main;
-        $this->config = $this->main->getConfig();
+        $this->config = $this->main->getPluginConfig();
         $this->soulsAPI = new SoulsAPI($main);
 
         parent::__construct($this->config->get("souls-view-command-name"));

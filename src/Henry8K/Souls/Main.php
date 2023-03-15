@@ -63,7 +63,7 @@ class Main extends PluginBase implements Listener {
     //     GET GENERAL CONFIG FUNCTION
     // ===================================
     
-    public function getConfig(): Config {
+    public function getPluginConfig(): Config {
         return $this->config;
     }
 
