@@ -35,7 +35,7 @@ souls-manage-command: true
 
 souls-view-command-name: "souls"
 souls-view-command-description: "View your total souls on the server."
-souls-view-message-command: "§aYou have §6{player_souls} §8souls."
+souls-view-message-command: "§aYou have §6{player_souls} §asouls."
 
 souls-sell-command-name: "soulsell"
 souls-sell-command-description: "Sell your souls for money or XP on the server."

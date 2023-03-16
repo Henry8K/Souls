@@ -30,7 +30,10 @@ class SoulsViewCommand extends Command {
         $this->main = $main;
         $this->config = $this->main->getConfig();
         $this->soulsAPI = new SoulsAPI($main);
-        parent::__construct($this->config->get("souls-view-command-name"), $this->config->get("souls-view-command-description"), null, ["souls.view.command"]);
+        
+        parent::__construct($this->config->get("souls-view-command-name"));
+        $this->setDescription($this->config->get("souls-view-command-description"));
+        $this->setPermission("souls.view.command");
     }
 
     //==============================

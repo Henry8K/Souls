@@ -2,7 +2,7 @@
 
 namespace Henry8K\Souls;
 
-use pocketmine\plugin\Config;
+use pocketmine\utils\Config;
 use pocketmine\event\Listener;
 use pocketmine\plugin\PluginBase;
 

@@ -1,7 +1,9 @@
 <?php
 
+namespace Henry8K\Souls\API;
+
 use Henry8K\Souls\Main;
-use pocketmine\plugin\Config;
+use pocketmine\utils\Config;
 use pocketmine\player\Player;
 use pocketmine\plugin\PluginBase;
 

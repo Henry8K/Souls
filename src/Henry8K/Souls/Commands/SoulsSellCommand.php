@@ -34,7 +34,10 @@ class SoulsSellCommand extends Command {
         $this->main = $main;
         $this->config = $main->getConfig();
         $this->soulsAPI = new SoulsAPI($main);
-        parent::__construct($this->config->get("souls-sell-command-name"), $this->config->get("souls-sell-command-description"), null, ["souls.sell.command"]);
+
+        parent::__construct($this->config->get("souls-sell-command-name"));
+        $this->setDescription($this->config->get("souls-sell-command-description"));
+        $this->setPermission("souls.sell.command");
     }
 
     //==============================
