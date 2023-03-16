@@ -48,6 +48,6 @@ souls-sell-command-description: "Sell your souls for money or XP on the server."
 
 form-souls-sell-title: "§l§8SOULS SELL"
 form-souls-sell-description: "§fYou have §6{player_souls} §fsouls to sell."
-form-souls-sell-exit: "§l§aSELL\n§8Click to sell your souls."
-form-souls-sell-exit-button: "§l§cEXIT\n§8Click to exit from souls sell form."
+form-souls-sell-button: "§l§aSELL\n§r§8Click to sell your souls."
+form-souls-sell-exit-button: "§l§cEXIT\n§r§8Click to exit from souls sell form."
 ...
