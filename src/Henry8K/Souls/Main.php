@@ -17,61 +17,61 @@ use Henry8K\Souls\Commands\SoulsManageCommand;
 class Main extends PluginBase implements Listener {
 
     /** @var Config */
-    private $Config;
+    private Config $config;
 
     /** @var Config */
-    private $souls;
+    private Config $souls;
 
     /** @var SoulsAPI */
-    private $soulsAPI;    
+    private SoulsAPI $soulsAPI;
 
     // ===================================
     //       GENERAL ENABLE FUNCTION
     // ===================================
 
-    public function onEnable():  void {
+    public function onEnable(): void {
         $this->saveDefaultConfig();
 
-        $souls = new Config($this->getDataFolder() . "souls.yml" . Souls::YAML);
-        $config = new Config($this->getDataFolder() . "config.yml" . Config::YAML);
-        
+        $this->config = new Config($this->getDataFolder() . "config.yml", Config::YAML);
+        $this->souls = new Config($this->getDataFolder() . "souls.yml", Config::YAML);
+
         $this->getServer()->getPluginManager()->registerEvents(new PlayerAdd($this), $this);
         $this->getServer()->getPluginManager()->registerEvents(new PlayerEvent($this), $this);
 
         $this->soulsAPI = new SoulsAPI($this);
-		$this->getServer()->getCommandMap()->register("souls", new SoulsViewCommand($this));
+        $this->getServer()->getCommandMap()->register("souls", new SoulsViewCommand($this));
         $this->getServer()->getCommandMap()->register("soulssell", new SoulsSellCommand($this));
     }
 
     // ===================================
-    //       GENERAL ENABLE FUNCTION
+    //       GENERAL DISABLE FUNCTION
     // ===================================
-    
+
     public function onDisable(): void {
         $this->souls->save();
     }
 
     // ===================================
-    //     GET GENERAL CONFIG FUNCTION
+    //      GET GENERAL API FUNCTION
     // ===================================
-    
-    public function getSouls(): Config {
-        return $this->souls;
+
+    public function getSoulsAPI(): SoulsAPI {
+        return $this->soulsAPI;
     }
 
     // ===================================
-    //     GET GENERAL CONFIG FUNCTION
+    //        GET CONFIG FUNCTION
     // ===================================
-    
-    public function getPluginConfig(): Config {
+
+    public function getConfig(): Config {
         return $this->config;
     }
 
     // ===================================
-    //     GET GENERAL API FUNCTION
-    // ===================================     
+    //        GET SOULS FUNCTION
+    // ===================================
 
-    public function getSoulsAPI(): SoulsAPI {
-        return $this->soulsAPI;
-    }    
+    public function getSouls(): Config {
+        return $this->souls;
+    }
 }

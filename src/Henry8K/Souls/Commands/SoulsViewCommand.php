@@ -14,13 +14,13 @@ use pocketmine\command\CommandSender;
 class SoulsViewCommand extends Command {
 
     /** @var Main */
-    private $main;
+    private Main $main;
 
     /** @var Config */
-    private $config;
+    private Config $config;
 
     /** @var SoulsAPI */
-    private $soulsAPI;    
+    private SoulsAPI $soulsAPI;    
 
     //==============================
     //     COMMAND CONSTRUCTOR
@@ -28,16 +28,13 @@ class SoulsViewCommand extends Command {
 
     public function __construct(Main $main) {
         $this->main = $main;
-        $this->config = $this->main->getPluginConfig();
+        $this->config = $this->main->getConfig();
         $this->soulsAPI = new SoulsAPI($main);
-
-        parent::__construct($this->config->get("souls-view-command-name"));
-        $this->setDescription($this->config->get("souls-view-command-description"));
-        $this->setPermission("souls.view.command");
+        parent::__construct($this->config->get("souls-view-command-name"), $this->config->get("souls-view-command-description"), null, ["souls.view.command"]);
     }
 
     //==============================
-    //     COMMAND EXECUTION
+    //      COMMAND EXECUTION
     //==============================
     
     public function execute(CommandSender $sender, string $commandLabel, array $args) : bool {
@@ -54,9 +51,9 @@ class SoulsViewCommand extends Command {
         if(!$this->config->get("souls-view-command")) {
             $sender->sendMessage($this->config->get("command-not-available"));
         } else {
-            $playersouls = $this->soulsAPI->getSouls($sender);
-            $playername = $sender->getName();
-            $sender->sendMessage(str_replace(["{player_souls}", "{player_name}"], [$playersouls, $playername], $this->config->get("souls-view-message-command")));
+            $playerSouls = $this->soulsAPI->getSouls($sender);
+            $playerName = $sender->getName();
+            $sender->sendMessage(str_replace(["{player_souls}", "{player_name}"], [$playerSouls, $playerName], $this->config->get("souls-view-message-command")));
         }
         return true;
     }

@@ -11,10 +11,9 @@ main: Henry8K\Souls\Main
 #    OTHER INFORMATIONS
 # ========================
 
-author: "Henry8K"
-website: "https://henry8k.github.io/"
+author: ["Henry8K"]
 softdepend: ["EconomyAPI",  "BedrockEconomy"]
-description: 'A plugin to implement souls system in your server'
+description: "A plugin to implement the soul system on your server"
 
 # ========================
 #   GENERAL PERMISSIONS
@@ -22,13 +21,9 @@ description: 'A plugin to implement souls system in your server'
 
 permissions:
     souls.view.command:
-      description: "View souls command permission"
+      description: "view souls command permission"
       default: true
 
     souls.sell.command:
-      description: "Sell souls command permission"
+      description: "sell souls command permission"
       default: true
-
-    souls.manage.command:
-      description: "Player souls manage command permission"
-      default: op

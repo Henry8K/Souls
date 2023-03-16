@@ -3,13 +3,13 @@
 namespace Henry8K\Souls\Commands;
 
 use Henry8K\Souls\Main;
+use Henry8K\Souls\API\SoulsAPI;
+use Henry8K\Souls\Utils\PluginUtils;
+
 use pocketmine\utils\Config;
 use pocketmine\player\Player;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
-
-use Henry8K\Souls\API\SoulsAPI;
-use Henry8K\Souls\Utils\PluginUtils;
 
 use Vecnavium\FormsUI\Form;
 use davidglitch04\libEco\libEco;
@@ -18,81 +18,79 @@ use Vecnavium\FormsUI\SimpleForm;
 class SoulsSellCommand extends Command {
 
     /** @var Main */
-    private $main;
+    private Main $main;
 
     /** @var Config */
-    private $config;
+    private Config $config;
 
     /** @var SoulsAPI */
-    private $soulsAPI;
+    private SoulsAPI $soulsAPI;
 
     //==============================
     //     COMMAND CONSTRUCTOR
-    //==============================
+    //==============================    
 
     public function __construct(Main $main) {
         $this->main = $main;
-        $this->config = $this->main->getPluginConfig();
+        $this->config = $main->getConfig();
         $this->soulsAPI = new SoulsAPI($main);
-
-        parent::__construct($this->config->get("souls-sell-command-name"));
-        $this->setDescription($this->config->get("souls-sell-command-description"));
-        $this->setPermission("souls.sell.command");
+        parent::__construct($this->config->get("souls-sell-command-name"), $this->config->get("souls-sell-command-description"), null, ["souls.sell.command"]);
     }
 
     //==============================
-    //     COMMAND EXECUTION
-    //==============================
-    
-    public function execute(CommandSender $sender, string $commandLabel, array $args) : bool {
+    //       COMMAND EXECUTION
+    //==============================    
+
+    public function execute(CommandSender $sender, string $commandLabel, array $args): bool {
         if(!$sender instanceof Player) {
             $sender->sendMessage($this->config->get("in-game-message"));
             return true;
         }
 
-        if(!$sender->hasPermission("souls.sell.command")) {
+        if(!$sender->hasPermission($this->getPermission())) {
             $sender->sendMessage($this->config->get("no-perms-message"));
             return true;
         }
 
         if(!$this->config->get("souls-sell-command")) {
             $sender->sendMessage($this->config->get("command-not-available"));
-        } else {
-            $this->opensellUI($sender);
+            return true;
         }
+
+        $this->opensellUI($sender);
         return true;
     }
 
     //==============================
-    //        FORM GENERATOR
+    //       FORM CONSTRUCTOR
     //==============================
 
-    public function opensellUI(Player $player): void {
-        $form = new SimpleForm(function(Player $player, ?int $data) {
-            if($data === null) {
+    private function openSellUI(Player $player): void {
+        $form = new SimpleForm(function(Player $player, ?int $data): void {
+            if ($data === null) {
                 return;
             }
 
-            switch($data) {
+            switch ($data) {
                 case 0:
-                    $soulprice = $this->config->get("general-price-per-soul");
+                    $soulPrice = $this->config->get("general-price-per-soul");
                     $souls = $this->soulsAPI->getSouls($player);
-                    $price = $souls * $soulprice;
+                    $price = $souls * $soulPrice;
 
                     if($this->config->get("general-souls-sell-mode") == 1) {
                         if($price > 0) {
                             libEco::addMoney($player, $price);
                             $this->soulsAPI->setSouls($player, 0);
-							$player->sendMessage($this->config->get("message-success-when-selling"));
+                            $player->sendMessage($this->config->get("message-success-when-selling"));
                         } else {
-							$player->sendMessage($this->config->get("message-not-enough-souls"));
-						}
+                            $player->sendMessage($this->config->get("message-not-enough-souls"));
+                        }
+                        
                     } else {
                         if($price > 0) {
                             $player->getXpManager()->addXpLevels($price);
                             $this->soulsAPI->setSouls($player, 0);
-							$player->sendMessage($this->config->get("message-success-when-selling"));
-                        
+                            $player->sendMessage($this->config->get("message-success-when-selling"));
                         } else {
                             $player->sendMessage($this->config->get("message-not-enough-souls"));
                         }
@@ -106,11 +104,11 @@ class SoulsSellCommand extends Command {
         });
 
         $content = $this->config->get("form-souls-sell-description");
-        $playersouls = $this->soulsAPI->getSouls($player);
-        $playername = $player->getName();
+        $playerSouls = $this->soulsAPI->getSouls($player);
+        $playerName = $player->getName();
         
-        $content = str_replace("{player_souls}", $playersouls, $content);
-        $content = str_replace("{player_name}", $playername, $content);
+        $content = str_replace("{player_souls}", $playerSouls, $content);
+        $content = str_replace("{player_name}", $playerName, $content);
         
         $form->setTitle($this->config->get("form-souls-sell-title"));
         $form->setContent($content);

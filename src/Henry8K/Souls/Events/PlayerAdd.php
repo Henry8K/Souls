@@ -14,16 +14,16 @@ use pocketmine\event\player\PlayerQuitEvent;
 class PlayerAdd implements Listener {
 
     /** @var Main */
-    private $main;
+    private Main $main;
 
     /** @var Config */
-    private $config;
+    private Config $config;
     
     /** @var Config */
-    private $souls;
+    private Config $souls;
 
     /** @var SoulsAPI */
-    private $soulsAPI;    
+    private SoulsAPI $soulsAPI;    
 
     //==============================
     //     LISTENER CONSTRUCTOR
@@ -31,7 +31,7 @@ class PlayerAdd implements Listener {
 
     public function __construct(Main $main) {
         $this->main = $main;
-        $this->config = $this->main->getPluginConfig();
+        $this->config = $this->main->getConfig();
         $this->souls = $this->main->getSouls();
         $this->soulsAPI = new SoulsAPI($main);
     }
@@ -42,10 +42,10 @@ class PlayerAdd implements Listener {
     
     public function onJoin(PlayerJoinEvent $event) {
         $player = $event->getPlayer();
-        $playername = $player->getName();
+        $playerName = $player->getName();
 
-        if(!isset($this->souls->getAll()["players"][$playername])) {
-            $this->souls->setNested("players.$playername", 0);
+        if(!isset($this->souls->getAll()["players"][$playerName])) {
+            $this->souls->setNested("players.$playerName", 0);
             $this->souls->save();
         } 
     }
@@ -56,10 +56,10 @@ class PlayerAdd implements Listener {
     
     public function onQuit(PlayerQuitEvent $event): void {
         $player = $event->getPlayer();
-        $playername = $player->getName();
+        $playerName = $player->getName();
         
-        if($this->souls->exists("players." . $playername)) {
-            $this->souls->setNested("players.". $playername, $this->soulsAPI->getSouls($player));
+        if($this->souls->exists("players." . $playerName)) {
+            $this->souls->setNested("players.". $playerName, $this->soulsAPI->getSouls($player));
             $this->souls->save();
         }
     }

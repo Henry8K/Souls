@@ -14,13 +14,13 @@ use pocketmine\event\entity\EntityDamageByEntityEvent;
 class PlayerEvent implements Listener {
 
     /** @var Main */
-    private $main;
+    private Main $main;
 
     /** @var Config */
-    private $config;
+    private Config $config;
 
     /** @var SoulsAPI */
-    private $soulsAPI;
+    private SoulsAPI $soulsAPI;
 
     //==============================
     //     LISTENER CONSTRUCTOR
@@ -28,7 +28,7 @@ class PlayerEvent implements Listener {
 
     public function __construct(Main $main) {
         $this->main = $main;
-        $this->config = $this->main->getPluginConfig();
+        $this->config = $this->main->getConfig();
         $this->soulsAPI = new SoulsAPI($main);
     }
 
@@ -39,9 +39,9 @@ class PlayerEvent implements Listener {
     public function onDeath(PlayerDeathEvent $event) {
         $player = $event->getPlayer();
         $cause = $player->getLastDamageCause();
-        $worldname = $player->getWorld()->getFolderName();
+        $worldName = $player->getWorld()->getFolderName();
 
-        if(!in_array($worldname, $this->config->get("souls-give-worlds", []))) {
+        if(!in_array($worldName, $this->config->get("souls-give-worlds", []))) {
             return true;
         }
 
