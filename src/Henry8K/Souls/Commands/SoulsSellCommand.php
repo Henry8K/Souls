@@ -9,13 +9,14 @@ use Henry8K\Souls\Utils\PluginUtils;
 use pocketmine\utils\Config;
 use pocketmine\player\Player;
 use pocketmine\command\Command;
+use pocketmine\plugin\PluginOwned;
 use pocketmine\command\CommandSender;
 
 use Vecnavium\FormsUI\Form;
 use davidglitch04\libEco\libEco;
 use Vecnavium\FormsUI\SimpleForm;
 
-class SoulsSellCommand extends Command {
+class SoulsSellCommand extends Command implements PluginOwned {
 
     /** @var Main */
     private Main $main;
@@ -60,7 +61,7 @@ class SoulsSellCommand extends Command {
             return true;
         }
 
-        $this->opensellUI($sender);
+        $this->openSellUI($sender);
         return true;
     }
 
@@ -118,6 +119,14 @@ class SoulsSellCommand extends Command {
         $form->addButton($this->config->get("form-souls-sell-button"));
         $form->addButton($this->config->get("form-souls-sell-exit-button"));
         
-        $player->sendForm($form);        
+        $player->sendForm($form);
     }
+
+    //==============================
+    //        PLUGIN OWNED
+    //==============================
+
+    public function getOwningPlugin(): Main {
+        return $this->main;
+    }    
 }

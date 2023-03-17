@@ -5,7 +5,7 @@ branches:
 projects:
   Souls:
     path: ""
-    icon: souls.png
+    icon: meta/souls.png
     libs:
       - src: Vecnavium/FormsUI/FormsUI
         version: ^1.0.0

@@ -9,9 +9,10 @@ use Henry8K\Souls\Utils\PluginUtils;
 
 use pocketmine\player\Player;
 use pocketmine\command\Command;
+use pocketmine\plugin\PluginOwned;
 use pocketmine\command\CommandSender;
 
-class SoulsViewCommand extends Command {
+class SoulsViewCommand extends Command implements PluginOwned {
 
     /** @var Main */
     private Main $main;
@@ -59,5 +60,13 @@ class SoulsViewCommand extends Command {
             $sender->sendMessage(str_replace(["{player_souls}", "{player_name}"], [$playerSouls, $playerName], $this->config->get("souls-view-message-command")));
         }
         return true;
+    }
+
+    //==============================
+    //        PLUGIN OWNED
+    //==============================
+
+    public function getOwningPlugin(): Main {
+        return $this->main;
     }
 }

@@ -12,7 +12,6 @@ use Henry8K\Souls\Events\PlayerEvent;
 
 use Henry8K\Souls\Commands\SoulsViewCommand;
 use Henry8K\Souls\Commands\SoulsSellCommand;
-use Henry8K\Souls\Commands\SoulsManageCommand;
 
 class Main extends PluginBase implements Listener {
 
@@ -39,8 +38,8 @@ class Main extends PluginBase implements Listener {
         $this->getServer()->getPluginManager()->registerEvents(new PlayerEvent($this), $this);
 
         $this->soulsAPI = new SoulsAPI($this);
-        $this->getServer()->getCommandMap()->register("souls", new SoulsViewCommand($this));
-        $this->getServer()->getCommandMap()->register("soulssell", new SoulsSellCommand($this));
+        $this->getServer()->getCommandMap()->register($this->getDescription()->getName(), new SoulsViewCommand($this));
+        $this->getServer()->getCommandMap()->register($this->getDescription()->getName(), new SoulsSellCommand($this));       
     }
 
     // ===================================
