@@ -3,55 +3,66 @@
 namespace Henry8K\Souls\Events;
 
 use Henry8K\Souls\Main;
-use pocketmine\utils\Config;
-use pocketmine\event\Listener;
 use Henry8K\Souls\API\SoulsAPI;
 
-use pocketmine\player\Player;
-use pocketmine\event\player\PlayerDeathEvent;
-use pocketmine\event\entity\EntityDamageByEntityEvent;
+use pocketmine\utils\Config;
+use pocketmine\event\Listener;
+use pocketmine\event\block\BlockBreakEvent;
+use pocketmine\event\player\PlayerJoinEvent;
 
 class PlayerEvent implements Listener {
 
-    /** @var Main */
-    private Main $main;
-
-    /** @var Config */
+    private Config $data;
+    private SoulsAPI $API;
+    private array $players;
     private Config $config;
 
-    /** @var SoulsAPI */
-    private SoulsAPI $soulsAPI;
-
-    //==============================
-    //     LISTENER CONSTRUCTOR
-    //==============================   
+    //==================
+    //   CONSTRUCTOR
+    //==================
+    // The plugin's base constructor used in events.
 
     public function __construct(Main $main) {
-        $this->main = $main;
-        $this->config = $this->main->getConfig();
-        $this->soulsAPI = new SoulsAPI($main);
+        $this->API = $main->getAPI();
+        $this->data = $main->getData();
+        $this->config = $main->getConfig();
+        $this->players = $this->data->getNested("players", []);
     }
 
-    //==============================
-    //     PLAYER KILL EVENT ADD
-    //==============================       
+    //==================
+    //      EVENTS
+    //==================
+    // Events that manage player interactions on the server.
 
-    public function onDeath(PlayerDeathEvent $event) {
+    public function onBreak(BlockBreakEvent $event): void {
         $player = $event->getPlayer();
-        $cause = $player->getLastDamageCause();
-        $worldName = $player->getWorld()->getFolderName();
+        $this->API->addSouls($player, 1);
+    }
 
-        if(!in_array($worldName, $this->config->get("souls-give-worlds", []))) {
-            return true;
+    public function onJoin(PlayerJoinEvent $event): void {
+        $playerName = $event->getPlayer()->getName();
+        if(!$this->hasPlayerData($playerName)) {
+            $this->setPlayerData($playerName, ["souls" => 0, "level" => 0]);
         }
+    }
 
-        if($cause instanceof EntityDamageByEntityEvent) {
-            $killer = $cause->getDamager();
-            if($killer instanceof Player) {
-                $killername = $killer->getName();
-                $amount = $this->config->get("souls-per-player-kill");
-                $this->soulsAPI->addSouls($killername, $amount);
-            }
-        }
+    public function onDisable(): void {
+        $this->data->setNested("players", $this->players);
+        $this->data->save();
+    }
+
+    //==================
+    //     UTILITY
+    //==================
+    // Private event functions managers.
+
+    private function hasPlayerData(string $playerName): bool {
+        return isset($this->players[$playerName]["souls"], $this->players[$playerName]["level"]);
+    }
+
+    private function setPlayerData(string $playerName, array $data): void {
+        $this->players[$playerName] = $data;
+        $this->data->setNested("players.$playerName", $data);
+        $this->data->save();
     }
 }

@@ -1,17 +1,19 @@
---- # Poggit-CI Manifest. Open the CI at https://poggit.pmmp.io/ci/Henry8K/Souls
+---
+# Poggit-CI Manifest. Open the CI at https://poggit.pmmp.io/ci/Henry8K/Souls
 build-by-default: true
 branches:
-- main
+  - main
 projects:
   Souls:
-    path: ""
-    icon: meta/souls.png
+    path: ''
     libs:
       - src: Vecnavium/FormsUI/FormsUI
         version: ^1.0.0
       - src: David-pm-pl/libEco/libEco
         version: ^3.0.0
         branch: stable
+      - src: Paroxity/Commando/Commando
+        version: ^3.0.0
     lint:
-      phpstan: false        
+      phpstan: false
 ...

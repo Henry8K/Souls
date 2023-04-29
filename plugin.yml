@@ -1,29 +1,17 @@
-# ========================
-#   GENERAL INFORMATIONS
-# ========================
+#==================
+#     GENERAL
+#==================
+# General informations to the plugin work
 
 name: Souls
 api: [4.0.0]
-version: 1.0.0
+version: 1.1.0
 main: Henry8K\Souls\Main
 
-# ========================
-#    OTHER INFORMATIONS
-# ========================
+#==================
+#      OTHER
+#==================
+# Additional informations about the plugin
 
 author: ["Henry8K"]
-softdepend: ["EconomyAPI",  "BedrockEconomy"]
-description: "A plugin to implement the soul system on your server"
-
-# ========================
-#   GENERAL PERMISSIONS
-# ========================
-
-permissions:
-    souls.view.command:
-      description: "view souls command permission"
-      default: true
-
-    souls.sell.command:
-      description: "sell souls command permission"
-      default: true
+description: "A plugin that implements a Soul system for minecraft bedrock edition."
